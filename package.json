@@ -1,0 +1,22 @@
+{
+  "name": "cljs-compiler",
+  "version": "1.0.0",
+  "description": "ClojureScript to JavaScript compiler without binary dependencies",
+  "main": "lib/index.js",
+  "scripts": {
+    "generate-parser": "node ./scripts/generate.js",
+    "build": "npm run generate-parser",
+    "test": "ava",
+    "test:watch": "ava --watch"
+  },
+  "author": "Sergey Bekrin <sergey@bekrin.me> (http://bekrin.me)",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "ava": "^0.18.2",
+    "jison": "^0.4.17"
+  },
+  "engines": {
+    "node": ">=4.9.x"
+  }
+}
