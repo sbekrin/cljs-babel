@@ -1,7 +1,7 @@
 {
   "name": "cljs-compiler",
   "version": "1.0.0",
-  "description": "ClojureScript to JavaScript compiler without binary dependencies",
+  "description": "Clojure to JavaScript compiler without binary dependencies",
   "main": "lib/index.js",
   "scripts": {
     "generate-parser": "node ./scripts/generate.js",

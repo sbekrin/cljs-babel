@@ -1,4 +1,4 @@
-# ClojureScript to JavaScript compiler
+# Clojure to JavaScript compiler
 ## About
 This is experemental compiler which aims to generate ES5 JavaScript from
 ClojureScript source code.
