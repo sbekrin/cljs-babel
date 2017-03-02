@@ -4,17 +4,19 @@
   "description": "Clojure to JavaScript compiler without binary dependencies",
   "main": "lib/index.js",
   "scripts": {
-    "generate-parser": "node ./scripts/generate.js",
-    "build": "npm run generate-parser",
     "test": "ava",
     "test:watch": "ava --watch"
   },
   "author": "Sergey Bekrin <sergey@bekrin.me> (http://bekrin.me)",
   "license": "MIT",
-  "dependencies": {},
+  "dependencies": {
+    "babel-core": "^6.23.1",
+    "duplexer": "^0.1.1",
+    "jison": "^0.4.17",
+    "through": "^2.3.8"
+  },
   "devDependencies": {
-    "ava": "^0.18.2",
-    "jison": "^0.4.17"
+    "ava": "^0.18.2"
   },
   "engines": {
     "node": ">=4.9.x"
