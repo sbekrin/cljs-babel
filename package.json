@@ -11,6 +11,7 @@
   "license": "MIT",
   "dependencies": {
     "babel-core": "^6.23.1",
+    "babel-types": "^6.23.0",
     "duplexer": "^0.1.1",
     "jison": "^0.4.17",
     "through": "^2.3.8"
