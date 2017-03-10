@@ -1,10 +1,10 @@
-var express = require.call(null, "express");
+var express = require("express");
 
-var app = express.call(null);
+var app = express();
 app.get("/", function (_, res) {
   res.send("Hello world!");
 });
 app.get("/:someId", function (req, res) {
-  res.send(["You provided ", req.paramssomeId, " as id"].join(""));
+  res.send(["You provided ", req.params.someId, " as id"].join(""));
 });
 app.listen(3333);
