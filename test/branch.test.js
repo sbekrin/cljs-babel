@@ -22,4 +22,4 @@ test(
     } else {
       print("bar");
     }`
-)
+);
