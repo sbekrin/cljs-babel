@@ -1,6 +1,6 @@
 const jison = require('jison');
+const scope = require('cljs-types');
 const grammar = require('./grammar');
-const scope = require('./scope');
 
 class CljsParser extends jison.Parser {
     constructor() {

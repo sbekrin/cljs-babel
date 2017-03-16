@@ -1,143 +1,110 @@
-class Node {
-    constructor(location = []) {
-        this.last = false;
-        this.location = {
-            startLine: location[0] || 0,
-            startColumn: location[1] || 0,
-            endLine: location[2] || 0,
-            endColumn: location[3] || 0
-        }
+const l = require('./types');
+
+function collectArgs(values, value) {
+    if (Array.isArray(value)) {
+        values = values.concat(value);
+    } else {
+        values.push(value);
     }
+
+    return values;
 }
 
-class ProgramNode extends Node {
-    constructor(program, location) {
-        super(location);
-        this.program = program;
-    }
+function mapLocation(location) {
+    return [
+        location.first_line,
+        location.first_column,
+        location.last_line,
+        location.last_column
+    ]; 
 }
 
-class LeafNode extends Node {
-    constructor(left = null, right = null, location) {
-        super(location);
-        this.left = left;
-        this.right = right;
-    }
+function createProgram(leaf, location) {
+    return new l.ProgramNode(leaf, location);
 }
 
-class CommentNode extends Node {
-    constructor(text, location) {
-        super(location);
-        this.text = text;
-    }
+function createLeaf(left, right, location) {
+    return new l.LeafNode(left, right, location);
 }
 
-class SymbolNode extends Node {
-    constructor(value, location) {
-        super(location);
-        this.value = value;
-    }
+function createComment(text, location) {
+    return new l.CommentNode(text, location);
 }
 
-class KeywordNode extends Node {
-    constructor(name, location) {
-        super(location);
-        this.name = name;
-    }
+function createSymbol(value, location) {
+    return new l.SymbolNode(value, location);
 }
 
-class ListNode extends Node {
-    constructor(values, location) {
-        super(location);
-        this.values = values;
-    }
+function createKeyword(name, location) {
+    return new l.KeywordNode(name, location);
 }
 
-class VectorNode extends Node {
-    constructor(values, location) {
-        super(location);
-        this.values = values;
-    }
+function createList(values, location) {
+    return new l.ListNode(values, location);
 }
 
-class MapNode extends Node {
-    constructor(values, location) {
-        super(location);
-        this.values = values;
-    }
+function createVector(values, location) {
+    return new l.VectorNode(values, location);
 }
 
-class SetNode extends Node {
-    constructor(values, location) {
-        super(location);
-        this.value = values;
-    }
+function createMap(values, location) {
+    return new l.MapNode(values, location);
 }
 
-class StringNode extends Node {
-    constructor(value, location) {
-        super(location);
-        this.value = value;
-    }
+function createSet(values, location) {
+    return new l.SetNode(values, location);
 }
 
-class CharacterNode extends Node {
-    constructor(value, location) {
-        super(location);
-        this.value = value;
-    }
+function createString(value, location) {
+    return new l.StringNode(value, location);
 }
 
-class BooleanNode extends Node {
-    constructor(value, location) {
-        super(location);
-        this.value = value;
-    }
+function createCharacter(value, location) {
+    return new l.CharacterNode(value, location);
 }
 
-class NumberNode extends Node {
-    constructor(value, location) {
-        super(location);
-        this.value = value;
-    }
+function createBoolean(value, location) {
+    return new l.BooleanNode(value, location);
 }
 
-class NaNNode extends Node {
+function createNumber(value, location) {
+    return new l.NumberNode(value, location);
 }
 
-class InfinityNode extends Node {
-    constructor(negative = false, location) {
-        super(location);
-        this.negative = negative;
-    }
+function createNaN(location) {
+    return new l.NaNNode(location);
 }
 
-class NullNode extends Node {
+function createInfinity(negative, location) {
+    return new l.InfinityNode(negative, location);
 }
 
-class RegExpNode extends Node {
-    constructor(expression, location) {
-        super(location);
-        this.expression = expression;
-    }
+function createNull(location) {
+    return new l.NullNode(location);
+}
+
+function createRegExp(expression, location) {
+    return new l.RegExpNode(expression, location);
 }
 
 module.exports = {
-    ProgramNode,
-    LeafNode,
-    CommentNode,
-    SymbolNode,
-    KeywordNode,
-    ListNode,
-    VectorNode,
-    MapNode,
-    SetNode,
-    StringNode,
-    CharacterNode,
-    BooleanNode,
-    NumberNode,
-    NaNNode,
-    InfinityNode,
-    NullNode,
-    RegExpNode
+    collectArgs,
+    mapLocation,
+    createProgram,
+    createLeaf,
+    createComment,
+    createSymbol,
+    createKeyword,
+    createList,
+    createVector,
+    createMap,
+    createSet,
+    createString,
+    createCharacter,
+    createBoolean,
+    createNumber,
+    createNaN,
+    createInfinity,
+    createNull,
+    createRegExp
 };

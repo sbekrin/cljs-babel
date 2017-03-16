@@ -1,6 +1,6 @@
 import test from 'ava';
-import * as t from './scope';
-import parse from './index';
+import * as t from 'cljs-types';
+import parse from 'cljs-parser';
 
 test('should parse code and return an object', (assert) => {
     assert.notThrows(() => parse('()'));

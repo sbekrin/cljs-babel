@@ -1,7 +1,7 @@
 const fs = require('fs');
 const crypto = require('crypto');
-const parse = require('./parser');
-const translate = require('./translator');
+const parse = require('cljs-parser');
+const translate = require('cljs-translator');
 const generate = require('cljs-generator');
 const cache = new Map();
 
