@@ -1,0 +1,13 @@
+{
+  "name": "cljs-register",
+  "version": "1.0.0",
+  "description": "Node library to hook *.cljs files and parse them on the fly",
+  "main": "lib/index.js",
+  "author": "Sergey Bekrin <sergey@bekrin.me> (http://bekrin.me)",
+  "license": "MIT",
+  "dependencies": {
+    "cljs-compiler": "^1.0.0",
+    "common-tags": "^1.4.0",
+    "source-map-support": "^0.4.12"
+  }
+}

@@ -1,0 +1,1 @@
+(defn ^:export square [x] (* x x))
