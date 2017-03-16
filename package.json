@@ -4,7 +4,7 @@
   "description": "Clojure to JavaScript compiler without binary dependencies",
   "main": "lib/index.js",
   "scripts": {
-    "postinstall": "npm link && npm link cljs-compiler",
+    "pretest": "$CI && npm link && npm link cljs-compiler",
     "test": "ava"
   },
   "author": "Sergey Bekrin <sergey@bekrin.me> (http://bekrin.me)",
