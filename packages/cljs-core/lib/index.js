@@ -2,7 +2,7 @@ const fs = require('fs');
 const crypto = require('crypto');
 const parse = require('./parser');
 const translate = require('./translator');
-const assemble = require('./assembler');
+const generate = require('cljs-generator');
 const cache = new Map();
 
 function md5(input) {
@@ -22,7 +22,7 @@ function compile(input) {
     const hash = md5(input);
 
     if (!cache.has(hash)) {
-        cache.set(hash, assemble(translate(parse(input))));
+        cache.set(hash, generate(translate(parse(input))));
     }
 
     return cache.get(hash);   

@@ -1,7 +1,7 @@
 {
   "name": "cljs-compiler",
   "version": "1.0.0",
-  "description": "Clojure to JavaScript compiler without binary dependencies",
+  "description": "ClojureScript to JavaScript compiler without binary dependencies",
   "main": "lib/index.js",
   "scripts": {
     "pretest": "$CI && npm link && npm link cljs-compiler",
@@ -9,11 +9,6 @@
   },
   "author": "Sergey Bekrin <sergey@bekrin.me> (http://bekrin.me)",
   "license": "MIT",
-  "dependencies": {
-    "babel-core": "^6.23.1",
-    "babel-types": "^6.23.0",
-    "jison": "^0.4.17"
-  },
   "devDependencies": {
     "ava": "^0.18.2",
     "common-tags": "^1.4.0"

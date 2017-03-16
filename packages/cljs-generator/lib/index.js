@@ -1,7 +1,7 @@
 const { transformFromAst } = require('babel-core');
 
-function assemble(data) {
+function generate(data) {
     return transformFromAst(data.babelAst, data.sourceCode);
 }
 
-module.exports = assemble;
+module.exports = generate;
