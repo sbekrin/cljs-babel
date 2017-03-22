@@ -4,14 +4,14 @@
   "private": true,
   "description": "ClojureScript to JavaScript compiler without binary dependencies",
   "scripts": {
-    "setup": "node ./scripts/setup-dev-env.js",
     "test": "ava"
   },
   "author": "Sergey Bekrin <sergey@bekrin.me> (http://bekrin.me)",
   "license": "MIT",
   "devDependencies": {
     "ava": "^0.18.2",
-    "common-tags": "^1.4.0"
+    "common-tags": "^1.4.0",
+    "lerna": "2.0.0-beta.38"
   },
   "engines": {
     "node": ">=4.9.x",
