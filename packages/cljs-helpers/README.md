@@ -1,2 +1,2 @@
 # cljs-helpers
-Helper utils for ClojureScript compiler
+Shared helper utils for ClojureScript compiler.

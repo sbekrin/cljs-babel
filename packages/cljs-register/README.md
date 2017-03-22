@@ -1,5 +1,5 @@
 # cljs-register
-Hook node's require to compile ClojureScript modules on the fly.
+Node package to hook *.cljs files and parse them on the fly.
 
 ## Usage
 ```clj

@@ -1,2 +1,2 @@
 # cljs-parser
-Generate ClojureScript AST from source code.
+Package to generate ClojureScript AST from source code.

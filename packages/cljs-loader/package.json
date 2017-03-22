@@ -5,6 +5,7 @@
   "main": "lib/index.js",
   "author": "Sergey Bekrin <sergey@bekrin.me> (http://bekrin.me)",
   "license": "MIT",
+  "repository": "https://github.com/sergeybekrin/cljs/tree/master/packages/cljs-loader",
   "dependencies": {
     "cljs-core": "^1.0.0",
     "loader-utils": "^1.1.0"

@@ -1,2 +1,2 @@
 # cljs-loader
-webpack loader for ClojureScript
+ClojureScript webpack loader.
