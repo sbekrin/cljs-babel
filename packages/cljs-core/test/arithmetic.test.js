@@ -18,6 +18,13 @@ test(
 );
 
 test(
+    'should compile basic arithmetic operations with multiply values',
+    compiler,
+    '(* 1 2 3 4 5)',
+    '(1 * 2 * 3 * 4 * 5);'
+);
+
+test(
     'should compile nested arithmetic operations',
     compiler,
     '(* (+ 1 2) (- 2 1))',
