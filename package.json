@@ -1,10 +1,11 @@
 {
-  "name": "cljs-compiler",
+  "name": "cljs",
   "version": "1.0.0",
+  "private": true,
   "description": "ClojureScript to JavaScript compiler without binary dependencies",
   "main": "lib/index.js",
   "scripts": {
-    "pretest": "$CI && npm link && npm link cljs-compiler",
+    "setup": "node ./scripts/setup-dev-env.js",
     "test": "ava"
   },
   "author": "Sergey Bekrin <sergey@bekrin.me> (http://bekrin.me)",

@@ -1,4 +1,4 @@
-require('cljs-register');
+require('../../lib');
 
 const { square } = require('./foo.cljs');
 

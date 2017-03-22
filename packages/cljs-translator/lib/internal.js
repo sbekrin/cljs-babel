@@ -1,7 +1,7 @@
 const t = require('babel-types');
 const l = require('cljs-types');
+const { toFlat } = require('cljs-helpers');
 const translateCore = require('./core');
-const { toFlat } = require('../utils');
 
 function escape(value = '') {
     return value
@@ -114,7 +114,7 @@ function translate(node) {
             return returnIfLast(node)([]);
 
         default:
-            throw new Error(`Compile error, unknown node type ${node}`);
+            throw new Error(`Compile error, unknown node type ${node.constructor.name}`);
     }
 }
 

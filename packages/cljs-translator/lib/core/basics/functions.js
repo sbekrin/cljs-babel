@@ -1,5 +1,5 @@
 const t = require('babel-types');
-const { toFlat } = require('../../../utils');
+const { toFlat } = require('cljs-helpers');
 
 function translateFunctionList(node) {
     return (translate) => {

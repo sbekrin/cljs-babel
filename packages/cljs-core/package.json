@@ -8,6 +8,8 @@
   "dependencies": {
     "babel-core": "^6.23.1",
     "babel-types": "^6.23.0",
-    "cljs-types": "^1.0.0"
+    "cljs-generator": "^1.0.0",
+    "cljs-parser": "^1.0.0",
+    "cljs-translator": "^1.0.0"
   }
 }

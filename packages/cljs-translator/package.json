@@ -1,0 +1,12 @@
+{
+  "name": "cljs-translator",
+  "version": "1.0.0",
+  "description": "ClojureScript AST to Babel AST translator",
+  "main": "lib/index.js",
+  "author": "Sergey Bekrin <sergey@bekrin.me> (http://bekrin.me)",
+  "license": "MIT",
+  "dependencies": {
+    "cljs-helpers": "^1.0.0",
+    "cljs-types": "^1.0.0"
+  }
+}

@@ -87,7 +87,7 @@ function createRegExp(expression, location) {
     return new l.RegExpNode(expression, location);
 }
 
-module.exports = {
+module.exports = Object.assign({}, l, {
     collectArgs,
     mapLocation,
     createProgram,
@@ -107,4 +107,4 @@ module.exports = {
     createInfinity,
     createNull,
     createRegExp
-};
+});
