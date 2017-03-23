@@ -1,5 +1,6 @@
 class Node {
     constructor(location = []) {
+        this.meta = null;
         this.last = false;
         this.location = {
             startLine: location[0] || 0,
@@ -29,6 +30,13 @@ class CommentNode extends Node {
     constructor(text, location) {
         super(location);
         this.text = text;
+    }
+}
+
+class MetaNode extends Node {
+    constructor(meta, location) {
+        super(location);
+        this.meta = meta;
     }
 }
 
@@ -126,6 +134,7 @@ module.exports = {
     ProgramNode,
     LeafNode,
     CommentNode,
+    MetaNode,
     SymbolNode,
     KeywordNode,
     ListNode,

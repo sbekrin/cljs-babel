@@ -69,13 +69,24 @@ const grammar = {
             [ 'value', '$$ = [ $1 ]' ],
             [ 'values value', '$$ = yy.collectArgs($1, $2)' ]
         ],
+        meta: [
+            [ '^id', run('createMeta', '$2') ],
+            // [ '^keyword', run('createMeta', '$2') ],
+            [ '^map', run('createMeta', '$2') ],
+            [ '^', skip('empty meta') ]
+        ],
+        metas: [
+            [ 'meta', '$$ = [ $1 ]' ],
+            [ 'metas meta', '$$ = yy.collectArgs($1, $2)' ]
+        ],
         id: [
             [ 'symbol', run('createSymbol', '$1') ],
         ],
         list: [
+            [ '( id metas values )', run('createList', '[ $2 ].concat($3).concat($4)') ],
+            [ '( id values )', run('createList', '[ $2 ].concat($3)') ],
             [ '( id )', run('createList', '[ $2 ]') ],
-            [ '( )', run('createList', '[]') ],
-            [ '( id values )', run('createList', '[ $2 ].concat($3)') ]
+            [ '( )', run('createList', '[]') ]
         ],
         vector: [
             [ '[ values ]', run('createVector', '$2') ],

@@ -31,6 +31,10 @@ function createComment(text, location) {
     return new l.CommentNode(text, location);
 }
 
+function createMeta(value, location) {
+    return new l.MetaNode(value, location);
+}
+
 function createSymbol(value, location) {
     return new l.SymbolNode(value, location);
 }
@@ -93,6 +97,7 @@ module.exports = Object.assign({}, l, {
     createProgram,
     createLeaf,
     createComment,
+    createMeta,
     createSymbol,
     createKeyword,
     createList,

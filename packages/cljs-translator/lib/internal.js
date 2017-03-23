@@ -69,7 +69,7 @@ function translate(node) {
             ));
 
         case l.ListNode:
-            return [ translateList(node) ];
+            return node.values.length > 0 ? [ translateList(node) ] : [];
 
         // TODO: Map / Set
         case l.MapNode:
@@ -121,7 +121,6 @@ function translate(node) {
 function translateList(node) {
     // Possible core function call
     const possibleCoreTranslation = translateCore(node, translate);
-
 
     if (possibleCoreTranslation) {
         return possibleCoreTranslation;
