@@ -60,11 +60,11 @@ function resolvePlaceholders(node, args = []) {
     return args;
 }
 
-function translateAst(data) {
+function translatorProxy(data) {
     return {
         sourceCode: data.sourceCode,
-        babelAst: translate(data.cljsAst)
+        ast: translate(data.ast)
     };
 }
 
-module.exports = translateAst;
+module.exports = translatorProxy;

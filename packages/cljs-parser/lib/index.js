@@ -1,11 +1,10 @@
-const CljsParser = require('./parser');
-const parser = new CljsParser();
+const parse = require('./parse');
 
-function parse(input) {
+function parserProxy(input) {
     return {
         sourceCode: input,
-        cljsAst: parser.parse(input)
+        ast: parse(input)
     };
 }
 
-module.exports = parse;
+module.exports = parserProxy;

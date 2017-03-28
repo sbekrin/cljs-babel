@@ -36,6 +36,11 @@ class FormNode extends Node {
     constructor(values, location) {
         super(location);
         this.values = values;
+
+        // Mark last node to return
+        if (this.values.length > 0) {
+            this.values[this.values.length - 1].last = true;
+        }
     }
 }
 
@@ -46,35 +51,41 @@ class MetaNode extends Node {
     }
 }
 
-class SymbolNode extends Node {
+class MetableNode extends Node {
+    constructor(meta, location) {
+        super(location);
+
+        if (Array.isArray(meta)) {
+            // TODO: merge metadata
+            this.meta = meta;
+        } else {
+            this.meta = null;
+        }
+    }
+}
+
+class SymbolNode extends MetableNode {
     constructor(value, meta, location) {
         if (location === undefined) {
             location = meta;
             meta = null;
         }
 
-        super(location);
-        this.meta = meta;
+        super(meta, location);
+
         this.value = value;
     }
 }
 
-class KeywordNode extends Node {
-    constructor(name, location) {
-        super(location);
-        this.name = name;
-    }
-}
-
-class CollectionNode extends Node {
+class CollectionNode extends MetableNode {
     constructor(values, meta, location) {
         if (location === undefined) {
             location = meta;
             meta = null;
         }
 
-        super(location);
-        this.meta = meta;
+        super(meta, location);
+
         this.values = values;
     }
 }
@@ -89,6 +100,13 @@ class MapNode extends CollectionNode {
 }
 
 class SetNode extends CollectionNode {
+}
+
+class KeywordNode extends Node {
+    constructor(name, location) {
+        super(location);
+        this.name = name;
+    }
 }
 
 class StringNode extends Node {

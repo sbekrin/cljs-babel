@@ -1,7 +1,7 @@
 const { transformFromAst } = require('babel-core');
 
-function generate(data) {
-    return transformFromAst(data.babelAst, data.sourceCode);
+function generatorProxy(data) {
+    return transformFromAst(data.ast, data.sourceCode);
 }
 
-module.exports = generate;
+module.exports = generatorProxy;

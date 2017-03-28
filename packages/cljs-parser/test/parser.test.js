@@ -6,7 +6,7 @@ import parse from '../lib';
 test('should parse code and return an object', (assert) => {
     assert.notThrows(() => parse('()'));
     assert.true('sourceCode' in parse('()'));
-    assert.true('cljsAst' in parse('()'));
+    assert.true('ast' in parse('()'));
 });
 
 test(

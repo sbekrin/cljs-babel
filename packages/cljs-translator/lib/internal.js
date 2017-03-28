@@ -9,19 +9,13 @@ function escape(value = '') {
         .replace(/\./, '');
 }
 
-function returnIfLast(cljsNode) {
-    return (babelNode) => {
-        return cljsNode.last ? t.returnStatement(babelNode) : babelNode;
-    };
-}
-
 function translate(node) {
     if (!node) {
         return null;
     }
 
     switch (node.constructor) {
-        case l.ProgramNode:
+        case l.ProgramNode: {
             const program = translate(node.program)
                 .map((node) => (
                     t.isStatement(node) ?
@@ -30,15 +24,16 @@ function translate(node) {
                 ));
 
             return t.file(t.program(program, []), node);
+        }
 
         case l.LeafNode:
             return translate(node.left).concat(translate(node.right));
 
         case l.SymbolNode:
-            return returnIfLast(node)(t.identifier(escape(node.value)));
+            return t.identifier(escape(node.value));
 
         case l.KeywordNode:
-            return returnIfLast(node)(t.newExpression(
+            return t.newExpression(
                 t.identifier('Keyword'),
                 [
                     // TODO: what if keyword has namespace?
@@ -47,12 +42,12 @@ function translate(node) {
                     t.stringLiteral(node.name),
                     t.stringLiteral(node.name)
                 ]
-            ));
+            );
 
-        case l.VectorNode:
+        case l.VectorNode: {
             const values = node.values.map((value) => translate(value));
 
-            return returnIfLast(node)(t.newExpression(
+            return t.newExpression(
                 t.identifier('PersistentVector'),
                 [
                     // TODO: what is magic 3d argument?
@@ -66,7 +61,8 @@ function translate(node) {
                     t.arrayExpression(values),
                     t.nullLiteral()
                 ]
-            ));
+            );
+        }
 
         case l.FormNode:
             return node.values.length > 0 ? [ translateForm(node) ] : [];
@@ -75,44 +71,31 @@ function translate(node) {
         case l.VectorNode:
         case l.MapNode:
         case l.SetNode:
+        case l.RegExpNode:
             throw new Error('Not implemented');
 
         case l.StringNode:
         case l.CharacterNode:
-            return returnIfLast(node)(
-                t.stringLiteral(node.value)
-            );
+            return t.stringLiteral(node.value);
 
         case l.BooleanNode:
-            return returnIfLast(node)(
-                t.booleanLiteral(node.value)
-            );
+            return t.booleanLiteral(node.value);
 
         case l.NumberNode:
-            return returnIfLast(node)(
-                t.numericLiteral(node.value)
-            );
+            return t.numericLiteral(node.value);
 
         case l.NaNNode:
-            return returnIfLast(node)(
-                t.identifier('NaN')
-            );
+            return t.identifier('NaN');
 
         case l.InfinityNode:
-            return returnIfLast(node)(
+            return (
                 node.negative ?
                 t.unaryExpression('-', t.identifier('Infinity')) :
                 t.identifier('Infinity')
             );
 
         case l.NullNode:
-            return returnIfLast(node)(
-                t.nullLiteral()
-            );
-
-        // TODO: RegExp
-        case l.RegExpNode:
-            return returnIfLast(node)([]);
+            return t.nullLiteral();
 
         default:
             throw new Error(`Compile error, unknown node type ${node.constructor.name}`);
@@ -120,7 +103,7 @@ function translate(node) {
 }
 
 function translateForm(node) {
-    // Possible core function call
+    // Possible core form call
     const possibleCoreTranslation = translateCore(node, translate);
 
     if (possibleCoreTranslation) {

@@ -6,17 +6,16 @@ function translateFunctionList(node) {
         switch (node.values[0].value) {
             // Create
             case 'fn': {
-                const args = node.values[1].values
-                    .map((arg) => translate(arg));
+                const args = node.values[1].values.map((arg) => translate(arg));
                 const bodyNodes = node.values.slice(2, node.values.length);
-                const lastNodeIndex = bodyNodes.length - 1;
-                const body = bodyNodes
-                    .map((node) => toFlat(translate(node)))
-                    .map((expression, index) => (
-                        lastNodeIndex === index ?
-                        t.returnStatement(expression) :
-                        t.expressionStatement(expression)
-                    ));
+                const body = bodyNodes.map((node) => {
+                    const element = toFlat(translate(node));
+                    return (
+                        node.last ?
+                        t.returnStatement(element) :
+                        t.expressionStatement(element)
+                    );
+                });
 
                 return t.functionExpression(null, args, t.blockStatement(body));
             }
