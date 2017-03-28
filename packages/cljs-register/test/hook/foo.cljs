@@ -1,1 +1,1 @@
-(defn ^:export square [x] (* x x))
+(def ^:export square (fn [x] (* x x)))

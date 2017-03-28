@@ -1,7 +1,7 @@
-const compiler = require('../../lib');
+import compiler from '../../lib';
 
 function compilerMacro(assert, input, expected) {
     assert.is(compiler.compile(input).code, expected);
-};
+}
 
-module.exports = compilerMacro;
+export default compilerMacro;

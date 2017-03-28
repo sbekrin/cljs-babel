@@ -1,7 +1,7 @@
-const parse = require('../../lib');
+import parse from '../../lib';
 
 function parserMacro(assert, input, expected) {
-    assert.is(parse(input).cljsAst, expected);
-};
+    assert.deepEqual(parse(input).cljsAst, expected);
+}
 
-module.exports = parserMacro;
+export default parserMacro;

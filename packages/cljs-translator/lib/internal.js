@@ -68,13 +68,14 @@ function translate(node) {
                 ]
             ));
 
-        case l.ListNode:
-            return node.values.length > 0 ? [ translateList(node) ] : [];
+        case l.FormNode:
+            return node.values.length > 0 ? [ translateForm(node) ] : [];
 
-        // TODO: Map / Set
+        case l.ListNode:
+        case l.VectorNode:
         case l.MapNode:
         case l.SetNode:
-            return [];
+            throw new Error('Not implemented');
 
         case l.StringNode:
         case l.CharacterNode:
@@ -118,7 +119,7 @@ function translate(node) {
     }
 }
 
-function translateList(node) {
+function translateForm(node) {
     // Possible core function call
     const possibleCoreTranslation = translateCore(node, translate);
 

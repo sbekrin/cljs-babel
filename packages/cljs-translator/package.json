@@ -7,6 +7,7 @@
   "license": "MIT",
   "repository": "https://github.com/sergeybekrin/cljs/tree/master/packages/cljs-translator",
   "dependencies": {
+    "babel-types": "^6.23.0",
     "cljs-helpers": "^1.0.0",
     "cljs-types": "^1.0.0"
   }

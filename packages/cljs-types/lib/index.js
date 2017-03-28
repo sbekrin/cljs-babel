@@ -31,12 +31,16 @@ function createComment(text, location) {
     return new l.CommentNode(text, location);
 }
 
+function createForm(values, location) {
+    return new l.FormNode(values, location);
+}
+
 function createMeta(value, location) {
     return new l.MetaNode(value, location);
 }
 
-function createSymbol(value, location) {
-    return new l.SymbolNode(value, location);
+function createSymbol(value, meta, location) {
+    return new l.SymbolNode(value, meta, location);
 }
 
 function createKeyword(name, location) {
@@ -97,6 +101,7 @@ module.exports = Object.assign({}, l, {
     createProgram,
     createLeaf,
     createComment,
+    createForm,
     createMeta,
     createSymbol,
     createKeyword,

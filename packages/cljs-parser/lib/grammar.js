@@ -13,13 +13,13 @@ const grammar = {
             [ '#\"([^"]|\\\\\")*\"?', atom('regexp') ],
             [ '\"([^"]|\\\\\")*\"?', atom('string') ],
             [ '\\[^\\s]*', atom('character') ],
-            [ '\:[\\w=+\\-*&?!$%|<>\\./]*', atom('keyword') ],
+            [ '\:[\\w=+\\-*&?!$%|<>\\./]*', atom('keyword_atom') ],
             // TODO: namespaced keyword
             [ 'true|false', atom('boolean') ],
             [ 'nil', atom('nil') ],
             [ 'NaN', atom('nan') ],
             [ '[-+]?Infinity', atom('infinity') ],
-            [ '[A-Za-z_=+\\-*&?!$%|<>\\./][\\w=+\\-*&?!$%|<>\\./]*', atom('symbol') ],
+            [ '[A-Za-z_=+\\-*&?!$%|<>\\./][\\w=+\\-*&?!$%|<>\\./]*', atom('symbol_atom') ],
             [ '\\(', atom('(') ],
             [ '\\)', atom(')') ],
             [ '\\[', atom('[') ],
@@ -46,11 +46,17 @@ const grammar = {
             [ 'leaf code', run('createLeaf', '$1', '$2') ]
         ],
         code: [
-            'list',
+            'form',
             [ 'comment', run('createComment', '$1.replace(/^[;| |\t]+/, "")') ]
         ],
+        symbol: [
+            [ 'symbol_atom', run('createSymbol', '$1', 'null') ],
+            [ 'metas symbol_atom', run('createSymbol', '$2', '$1') ]
+        ],
+        keyword: [
+            [ 'keyword_atom', run('createKeyword', '$1') ],
+        ],
         value: [
-            [ 'keyword', run('createKeyword', '$1.replace(/^:/g, "")') ],
             [ 'string', run('createString', '"" + $1.replace(/^"|"$/g, "")') ],
             [ 'character', run('createCharacter', '"" + $1') ],
             [ 'boolean', run('createBoolean', '$1 === "true"') ],
@@ -59,7 +65,9 @@ const grammar = {
             [ 'infinity', run('createInfinity', '$1[0] === "-"') ],
             [ 'nil', run('createNull') ],
             [ 'regexp', run('createRegExp', '$2') ],
-            'id',
+            'form',
+            'keyword',
+            'symbol',
             'list',
             'vector',
             'set',
@@ -70,35 +78,41 @@ const grammar = {
             [ 'values value', '$$ = yy.collectArgs($1, $2)' ]
         ],
         meta: [
-            [ '^id', run('createMeta', '$2') ],
-            // [ '^keyword', run('createMeta', '$2') ],
-            [ '^map', run('createMeta', '$2') ],
-            [ '^', skip('empty meta') ]
+            [ '^ symbol', run('createMeta', '$2') ],
+            [ '^ keyword', run('createMeta', '$2') ],
+            [ '^ map', run('createMeta', '$2') ]
         ],
         metas: [
             [ 'meta', '$$ = [ $1 ]' ],
             [ 'metas meta', '$$ = yy.collectArgs($1, $2)' ]
         ],
-        id: [
-            [ 'symbol', run('createSymbol', '$1') ],
+        form: [
+            [ '( values )', run('createForm', '$2') ],
+            [ '( )', run('createForm', '[]') ]
         ],
         list: [
-            [ '( id metas values )', run('createList', '[ $2 ].concat($3).concat($4)') ],
-            [ '( id values )', run('createList', '[ $2 ].concat($3)') ],
-            [ '( id )', run('createList', '[ $2 ]') ],
-            [ '( )', run('createList', '[]') ]
+            [ "metas ' ( values )", run('createList', '$3', '$2') ],
+            [ "metas ' ( )", run('createList', '[]', '$2') ],
+            [ "' ( values )", run('createList', '$2') ],
+            [ "' ( )", run('createList', '[]') ]
         ],
         vector: [
+            [ 'metas [ values ]', run('createVector', '$3', '$2') ],
+            [ 'metas [ ]', run('createVector', '[]', '$2') ],
             [ '[ values ]', run('createVector', '$2') ],
             [ '[ ]', run('createVector', '[]') ],
         ],
         map: [
+            [ 'metas { values }', run('createMap', '$3', '$2') ],
+            [ 'metas { }', run('createMap', '[]', '$2') ],
             [ '{ values }', run('createMap', '$2') ],
             [ '{ }', run('createMap', '[]') ]
         ],
         set: [
-            [ '#{ values }', run('createSet', '$2') ],
-            [ '#{ }', run('createSet', '[]') ]
+            [ 'metas # { values }', run('createSet', '$3', '$2') ],
+            [ 'metas # { }', run('createSet', '[]', '$2') ],
+            [ '# { values }', run('createSet', '$2') ],
+            [ '# { }', run('createSet', '[]') ]
         ]
         // TODO: namespaced map
     }

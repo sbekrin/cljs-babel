@@ -1,13 +1,12 @@
 class Node {
     constructor(location = []) {
-        this.meta = null;
         this.last = false;
         this.location = {
             startLine: location[0] || 0,
             startColumn: location[1] || 0,
             endLine: location[2] || 0,
             endColumn: location[3] || 0
-        }
+        };
     }
 }
 
@@ -33,16 +32,29 @@ class CommentNode extends Node {
     }
 }
 
-class MetaNode extends Node {
-    constructor(meta, location) {
+class FormNode extends Node {
+    constructor(values, location) {
         super(location);
-        this.meta = meta;
+        this.values = values;
+    }
+}
+
+class MetaNode extends Node {
+    constructor(value, location) {
+        super(location);
+        this.value = value;
     }
 }
 
 class SymbolNode extends Node {
-    constructor(value, location) {
+    constructor(value, meta, location) {
+        if (location === undefined) {
+            location = meta;
+            meta = null;
+        }
+
         super(location);
+        this.meta = meta;
         this.value = value;
     }
 }
@@ -54,32 +66,29 @@ class KeywordNode extends Node {
     }
 }
 
-class ListNode extends Node {
-    constructor(values, location) {
+class CollectionNode extends Node {
+    constructor(values, meta, location) {
+        if (location === undefined) {
+            location = meta;
+            meta = null;
+        }
+
         super(location);
+        this.meta = meta;
         this.values = values;
     }
 }
 
-class VectorNode extends Node {
-    constructor(values, location) {
-        super(location);
-        this.values = values;
-    }
+class ListNode extends CollectionNode {
 }
 
-class MapNode extends Node {
-    constructor(values, location) {
-        super(location);
-        this.values = values;
-    }
+class VectorNode extends CollectionNode {
 }
 
-class SetNode extends Node {
-    constructor(values, location) {
-        super(location);
-        this.value = values;
-    }
+class MapNode extends CollectionNode {
+}
+
+class SetNode extends CollectionNode {
 }
 
 class StringNode extends Node {
@@ -134,9 +143,11 @@ module.exports = {
     ProgramNode,
     LeafNode,
     CommentNode,
+    FormNode,
     MetaNode,
     SymbolNode,
     KeywordNode,
+    CollectionNode,
     ListNode,
     VectorNode,
     MapNode,
