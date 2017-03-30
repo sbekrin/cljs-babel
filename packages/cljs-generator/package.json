@@ -1,5 +1,5 @@
 {
-  "name": "cljs-generator",
+  "name": "@cljs/generator",
   "version": "1.0.0-alpha.1",
   "description": "ClojureScript AST to Babel AST generator",
   "main": "lib/index.js",

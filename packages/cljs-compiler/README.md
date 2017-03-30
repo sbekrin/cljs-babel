@@ -1,2 +1,2 @@
-# cljs-compiler
+# @cljs/compiler
 Core compiler package for cljs.

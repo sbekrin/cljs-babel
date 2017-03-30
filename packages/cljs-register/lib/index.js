@@ -1,6 +1,6 @@
 const sourceMapSupport = require('source-map-support');
 const { stripIndents } = require('common-tags');
-const { compileFileSync } = require('cljs-compiler');
+const { compileFileSync } = require('@cljs/compiler');
 
 sourceMapSupport.install({
     handleUncaughtExceptions: false,

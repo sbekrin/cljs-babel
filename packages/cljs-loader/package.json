@@ -1,5 +1,5 @@
 {
-  "name": "cljs-loader",
+  "name": "@cljs/loader",
   "version": "1.0.0-alpha.1",
   "description": "ClojureScript webpack loader",
   "main": "lib/index.js",
@@ -7,7 +7,7 @@
   "license": "MIT",
   "repository": "https://github.com/sergeybekrin/cljs/tree/master/packages/cljs-loader",
   "dependencies": {
-    "cljs-compiler": "^1.0.0-alpha.1",
+    "@cljs/compiler": "^1.0.0-alpha.1",
     "loader-utils": "^1.1.0"
   }
 }

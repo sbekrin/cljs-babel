@@ -1,4 +1,4 @@
-<img src="https://github.com/sergeybekrin/cljs-compiler/raw/master/.github/logo.png" alt="logo" width="240" height="240" />
+<img src="https://github.com/sergeybekrin/cljs/raw/master/.github/logo.png" alt="logo" width="240" height="240" />
 
 # ClojureScript to JavaScript compiler
 Experemental compiler which aims to generate ES5 JavaScript from

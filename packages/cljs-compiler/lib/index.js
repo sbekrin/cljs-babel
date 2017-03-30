@@ -1,8 +1,8 @@
 const fs = require('fs');
 const crypto = require('crypto');
-const parse = require('cljs-parser');
-const translate = require('cljs-translator');
-const generate = require('cljs-generator');
+const parse = require('@cljs/parser');
+const translate = require('@cljs/translator');
+const generate = require('@cljs/generator');
 const cache = new Map();
 
 function md5(input) {

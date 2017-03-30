@@ -1,5 +1,5 @@
 import test from 'ava';
-import * as t from 'cljs-types';
+import * as t from '@cljs/types';
 import parser from './helpers/macro';
 import parse from '../lib';
 

@@ -1,4 +1,4 @@
-# cljs-register
+# @cljs/register
 Node package to hook *.cljs files and parse them on the fly.
 
 ## Usage
@@ -9,7 +9,7 @@ Node package to hook *.cljs files and parse them on the fly.
 
 ```js
 // bar.js
-require('cljs-register');
+require('@cljs/register');
 
 const square = require('./foo.cljs');
 square(2); // -> 4

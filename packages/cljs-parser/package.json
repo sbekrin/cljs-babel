@@ -1,5 +1,5 @@
 {
-  "name": "cljs-parser",
+  "name": "@cljs/parser",
   "version": "1.0.0-alpha.1",
   "description": "Package to generate ClojureScript AST from source code",
   "main": "lib/index.js",
@@ -7,7 +7,7 @@
   "license": "MIT",
   "repository": "https://github.com/sergeybekrin/cljs/tree/master/packages/cljs-parser",
   "dependencies": {
-    "cljs-types": "^1.0.0-alpha.1",
+    "@cljs/types": "^1.0.0-alpha.1",
     "jison": "^0.4.17"
   }
 }

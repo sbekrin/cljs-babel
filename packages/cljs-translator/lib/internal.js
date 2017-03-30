@@ -1,6 +1,6 @@
 const t = require('babel-types');
-const l = require('cljs-types');
-const { toFlat } = require('cljs-helpers');
+const l = require('@cljs/types');
+const { toFlat } = require('@cljs/helpers');
 const translateCore = require('./core');
 
 function escape(value = '') {

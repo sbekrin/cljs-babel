@@ -1,2 +1,2 @@
-# cljs-repl
+# @cljs/repl
 ClojureScript REPL.

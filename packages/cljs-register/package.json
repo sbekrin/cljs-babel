@@ -1,5 +1,5 @@
 {
-  "name": "cljs-register",
+  "name": "@cljs/register",
   "version": "1.0.0-alpha.1",
   "description": "Node package to hook *.cljs files and parse them on the fly",
   "main": "lib/index.js",
@@ -7,7 +7,7 @@
   "license": "MIT",
   "repository": "https://github.com/sergeybekrin/cljs/tree/master/packages/cljs-register",
   "dependencies": {
-    "cljs-compiler": "^1.0.0-alpha.1",
+    "@cljs/compiler": "^1.0.0-alpha.1",
     "common-tags": "^1.4.0",
     "source-map-support": "^0.4.12"
   }
