@@ -1,6 +1,6 @@
 {
   "name": "cljs-helpers",
-  "version": "1.0.0",
+  "version": "1.0.0-alpha.0",
   "description": "Shared helper utils for ClojureScript compiler",
   "main": "lib/index.js",
   "author": "Sergey Bekrin <sergey@bekrin.me> (http://bekrin.me)",
