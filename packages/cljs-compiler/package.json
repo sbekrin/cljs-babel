@@ -1,11 +1,11 @@
 {
-  "name": "cljs-core",
+  "name": "cljs-compiler",
   "version": "1.0.0-alpha.1",
   "description": "Core package for ClojureScript compiler",
   "main": "lib/index.js",
   "author": "Sergey Bekrin <sergey@bekrin.me> (http://bekrin.me)",
   "license": "MIT",
-  "repository": "https://github.com/sergeybekrin/cljs/tree/master/packages/cljs-core",
+  "repository": "https://github.com/sergeybekrin/cljs/tree/master/packages/cljs-compiler",
   "dependencies": {
     "babel-core": "^6.23.1",
     "babel-types": "^6.23.0",

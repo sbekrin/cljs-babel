@@ -8,6 +8,6 @@
   "license": "MIT",
   "repository": "https://github.com/sergeybekrin/cljs/tree/master/packages/cljs-repl",
   "dependencies": {
-    "cljs-core": "^1.0.0-alpha.1"
+    "cljs-compiler": "^1.0.0-alpha.1"
   }
 }
