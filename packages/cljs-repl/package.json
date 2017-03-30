@@ -1,6 +1,6 @@
 {
   "name": "cljs-repl",
-  "version": "1.0.0-alpha.0",
+  "version": "1.0.0-alpha.1",
   "description": "ClojureScript REPL",
   "main": "lib/index.js",
   "preferGlobal": true,
@@ -8,6 +8,6 @@
   "license": "MIT",
   "repository": "https://github.com/sergeybekrin/cljs/tree/master/packages/cljs-repl",
   "dependencies": {
-    "cljs-core": "^1.0.0-alpha.0"
+    "cljs-core": "^1.0.0-alpha.1"
   }
 }
