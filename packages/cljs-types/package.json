@@ -6,6 +6,5 @@
   "author": "Sergey Bekrin <sergey@bekrin.me> (http://bekrin.me)",
   "license": "MIT",
   "repository": "https://github.com/sergeybekrin/cljs/tree/master/packages/cljs-types",
-  "dependencies": {
-  }
+  "dependencies": {}
 }
