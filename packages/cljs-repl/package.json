@@ -1,0 +1,13 @@
+{
+  "name": "cljs-repl",
+  "version": "1.0.0",
+  "description": "ClojureScript REPL",
+  "main": "lib/index.js",
+  "preferGlobal": true,
+  "author": "Sergey Bekrin <sergey@bekrin.me> (http://bekrin.me)",
+  "license": "MIT",
+  "repository": "https://github.com/sergeybekrin/cljs/tree/master/packages/cljs-repl",
+  "dependencies": {
+    "cljs-core": "^1.0.0"
+  }
+}
