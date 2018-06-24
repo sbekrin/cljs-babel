@@ -9,6 +9,6 @@
   "dependencies": {
     "@cljs/compiler": "^1.0.0-alpha.1",
     "common-tags": "^1.4.0",
-    "source-map-support": "^0.4.12"
+    "source-map-support": "^0.5.6"
   }
 }
