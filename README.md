@@ -1,6 +1,9 @@
 <img src="https://github.com/sergeybekrin/cljs/raw/master/.github/logo.png" alt="logo" width="240" height="240" />
 
 # ClojureScript to JavaScript compiler
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/sergeybekrin/cljs-babel.svg)](https://greenkeeper.io/)
+
 Experemental compiler which aims to generate ES5 JavaScript from
 ClojureScript source code.
 
