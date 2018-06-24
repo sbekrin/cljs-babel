@@ -9,9 +9,9 @@
   "author": "Sergey Bekrin <sergey@bekrin.me> (http://bekrin.me)",
   "license": "MIT",
   "devDependencies": {
-    "ava": "^0.18.2",
+    "ava": "^0.25.0",
     "common-tags": "^1.4.0",
-    "lerna": "2.0.0-beta.38"
+    "lerna": "2.11.0"
   },
   "engines": {
     "node": ">=4.9.x",
