@@ -1,1 +1,0 @@
-(def ^:export square (fn [x] (* x x)))

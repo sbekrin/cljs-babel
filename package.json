@@ -1,20 +1,15 @@
 {
   "name": "cljs",
-  "version": "1.0.0-alpha.0",
+  "version": "2.0.0",
   "private": true,
   "description": "ClojureScript to JavaScript compiler without binary dependencies",
-  "scripts": {
-    "test": "ava"
-  },
+  "scripts": {},
   "author": "Sergey Bekrin <sergey@bekrin.me> (http://bekrin.me)",
   "license": "MIT",
   "devDependencies": {
-    "ava": "^0.18.2",
-    "common-tags": "^1.4.0",
-    "lerna": "2.0.0-beta.38"
+    "lerna": "^3.0.1"
   },
   "engines": {
-    "node": ">=4.9.x",
-    "npm": "2.x || 3.x || 4.x"
+    "node": ">=8"
   }
 }

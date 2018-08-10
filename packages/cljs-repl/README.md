@@ -1,2 +1,0 @@
-# @cljs/repl
-ClojureScript REPL.
