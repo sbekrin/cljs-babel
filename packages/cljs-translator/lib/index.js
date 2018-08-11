@@ -1,10 +1,6 @@
 const t = require('babel-types');
 const l = require('@cljs/types');
-const { toFlat } = require('@cljs/helpers');
-
-function escape(value = '') {
-  return value.replace(/^\.\-/, '').replace(/\./, '');
-}
+const { toFlat, resolveSymbol } = require('@cljs/helpers');
 
 function translate(node) {
   if (!node) {
@@ -20,7 +16,7 @@ function translate(node) {
     case l.LeafNode:
       return translate(node.left).concat(translate(node.right));
     case l.SymbolNode:
-      return t.identifier(escape(node.value));
+      return t.identifier(resolveSymbol(node.value));
     case l.KeywordNode:
       return t.newExpression(t.identifier('Keyword'), [
         // TODO: what if keyword has namespace?
@@ -46,7 +42,6 @@ function translate(node) {
       ]);
       */
     }
-
     case l.FormNode:
       return node.values.length > 0 ? [translateForm(node)] : [];
     case l.ListNode:
@@ -79,12 +74,14 @@ function translate(node) {
 
 function translateForm(node) {
   const firstSymbol = node.values[0].value;
-  // Property accesor
+  // (.- foo bar) -> bar.foo
   if (firstSymbol.startsWith('.-')) {
-    const path = node.values[0].value.replace(/^\.\-/, '');
-    return t.memberExpression(translate(node.values[1]), t.identifier(path));
+    return t.memberExpression(
+      translate(node.values[1]),
+      t.identifier(resolveSymbol(firstSymbol))
+    );
   }
-  // Object method call
+  // (.foo bar) -> bar.foo()
   if (firstSymbol.startsWith('.')) {
     const object = translate(node.values[1]);
     const method = translate(node.values[0]);
@@ -93,11 +90,14 @@ function translateForm(node) {
       .map(arg => toFlat(translate(arg)));
     return t.callExpression(t.memberExpression(object, method), args);
   }
-  // TODO: New object instantiation
+  // (String. "hey") -> new String('hey')
   if (firstSymbol.endsWith('.')) {
-    throw new Error('Not implemented');
+    const args = node.values
+      .slice(1, node.values.length)
+      .map(arg => toFlat(translate(arg)));
+    return t.newExpression(t.identifier(resolveSymbol(firstSymbol)), args);
   }
-  // Function call
+  // (foo bar baz) -> foo(bar, baz)
   const args = node.values
     .slice(1, node.values.length)
     .map(arg => toFlat(translate(arg)));
