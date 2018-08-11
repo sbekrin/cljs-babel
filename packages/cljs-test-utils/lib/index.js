@@ -6,4 +6,8 @@ function transform(input) {
   }).code;
 }
 
-module.exports = { transform };
+function evaluate(input) {
+  return eval(transform(input));
+}
+
+module.exports = { transform, evaluate };
