@@ -1,0 +1,9 @@
+{
+  "name": "babel-preset-cljs",
+  "version": "2.0.0",
+  "main": "lib/index.js",
+  "dependencies": {
+    "@cljs/parser": "^2.0.0",
+    "@cljs/translator": "^2.0.0"
+  }
+}

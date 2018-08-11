@@ -1,29 +1,24 @@
-<img src="https://github.com/sergeybekrin/cljs/raw/master/.github/logo.png" alt="logo" width="240" height="240" />
+<center>
+  <img src="https://github.com/sergeybekrin/cljs/raw/master/.github/logo.png" alt="logo" width="120" height="120" />
+  <h1>ClojureScript 🖤 Babel</h1>
+  <p align="center">Experemental ClojureScript to JavaScript compiler based on Babel ecosystem without binary dependencies.</p>
+</center>
 
-# ClojureScript to JavaScript compiler
+## Getting started
 
-Experemental compiler which aims to generate ES5 JavaScript from
-ClojureScript source code.
+1. Install `babel-preset-cljs`:
 
-## Q&A
+```sh
+yarn add --dev babel-preset-cljs
+```
 
-### Why not existing JVM compiler?
+2. Add this preset to you `.babelrc`:
 
-This compiler is designed for modern JavaScript ecosystem, it's not compatiable
-with existing JVM version. Generated code targets CommonJS module system and
-does't depend on [Google Closure Library](https://developers.google.com/closure/library/),
-so it can be used in Node directly.
-
-### Does it support exiting JS APIs?
-
-This compiler generates js-first code, that means you wont't need namespaces
-for APIs, code like `(parseInt "42")`, `(.setTimeout window #(alert "Hello!") 1000)`
-and `(Promise. (fn [resolve] (resolve 42)))` will work out-of-box.
-
-### What is status of this project?
-
-This project is under active development. The primary target as for now is to achieve
-spec-compliance with existing ClojureScript compiler.
+```json
+{
+  "presets": ["cljs"]
+}
+```
 
 ## References
 
@@ -36,4 +31,5 @@ spec-compliance with existing ClojureScript compiler.
 
 ## License
 
-[MIT](https://github.com/sergeykrinbe/cljs-compiler/blob/master/LICENSE) &copy; Sergey Bekrin
+[MIT](https://github.com/sergeykrinbe/cljs-compiler/blob/master/LICENSE) &copy;
+Sergey Bekrin

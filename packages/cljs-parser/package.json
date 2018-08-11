@@ -1,13 +1,13 @@
 {
   "name": "@cljs/parser",
-  "version": "1.0.0-alpha.2",
+  "version": "2.0.0",
   "description": "Package to generate ClojureScript AST from source code",
   "main": "lib/index.js",
-  "author": "Sergey Bekrin <sergey@bekrin.me> (http://bekrin.me)",
+  "author": "Sergey Bekrin <sergey@bekrin.me> (https://bekrin.me)",
   "license": "MIT",
   "repository": "https://github.com/sergeybekrin/cljs/tree/master/packages/cljs-parser",
   "dependencies": {
-    "@cljs/types": "^1.0.0-alpha.2",
-    "jison": "^0.4.17"
+    "@cljs/types": "^2.0.0",
+    "jison": "^0.4.18"
   }
 }

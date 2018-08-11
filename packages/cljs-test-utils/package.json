@@ -1,0 +1,9 @@
+{
+  "name": "@cljs/test-utils",
+  "version": "2.0.0",
+  "private": true,
+  "main": "lib/index.js",
+  "dependencies": {
+    "babel-core": "^6.26.3"
+  }
+}

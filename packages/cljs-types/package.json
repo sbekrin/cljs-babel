@@ -1,9 +1,9 @@
 {
   "name": "@cljs/types",
-  "version": "1.0.0-alpha.2",
+  "version": "2.0.0",
   "description": "Package with ClojureScript AST node types",
   "main": "lib/index.js",
-  "author": "Sergey Bekrin <sergey@bekrin.me> (http://bekrin.me)",
+  "author": "Sergey Bekrin <sergey@bekrin.me> (https://bekrin.me)",
   "license": "MIT",
   "repository": "https://github.com/sergeybekrin/cljs/tree/master/packages/cljs-types",
   "dependencies": {}

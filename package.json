@@ -2,14 +2,29 @@
   "name": "cljs",
   "version": "2.0.0",
   "private": true,
-  "description": "ClojureScript to JavaScript compiler without binary dependencies",
-  "scripts": {},
+  "workspaces": [
+    "packages/*"
+  ],
+  "description": "ClojureScript to JavaScript compiler based on Babel",
   "author": "Sergey Bekrin <sergey@bekrin.me> (http://bekrin.me)",
   "license": "MIT",
-  "devDependencies": {
-    "lerna": "^3.0.1"
-  },
   "engines": {
     "node": ">=8"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "devDependencies": {
+    "jest": "^23.5.0",
+    "lerna": "^3.0.1",
+    "prettier": "^1.14.2"
+  },
+  "prettier": {
+    "singleQuote": true,
+    "trailingComma": "es5",
+    "proseWrap": "always"
+  },
+  "jest": {
+    "testEnvironment": "node"
   }
 }

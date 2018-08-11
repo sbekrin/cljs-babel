@@ -1,0 +1,1 @@
+(ns babel-preset-cljs.test)
