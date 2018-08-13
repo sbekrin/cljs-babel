@@ -32,18 +32,6 @@ class CommentNode extends Node {
   }
 }
 
-class FormNode extends Node {
-  constructor(values, location) {
-    super(location);
-    this.values = values;
-
-    // Mark last node to return
-    if (this.values.length > 0) {
-      this.values[this.values.length - 1].last = true;
-    }
-  }
-}
-
 class MetaNode extends Node {
   constructor(value, location) {
     super(location);
@@ -54,9 +42,7 @@ class MetaNode extends Node {
 class MetableNode extends Node {
   constructor(meta, location) {
     super(location);
-
     if (Array.isArray(meta)) {
-      // TODO: merge metadata
       this.meta = meta;
     } else {
       this.meta = null;
@@ -70,9 +56,7 @@ class SymbolNode extends MetableNode {
       location = meta;
       meta = null;
     }
-
     super(meta, location);
-
     this.value = value;
   }
 }
@@ -83,14 +67,20 @@ class CollectionNode extends MetableNode {
       location = meta;
       meta = null;
     }
-
     super(meta, location);
-
     this.values = values;
   }
 }
 
-class ListNode extends CollectionNode {}
+class ListNode extends CollectionNode {
+  constructor(values, meta, location) {
+    super(values, meta, location);
+    // Mark last node to return
+    if (this.values.length > 0) {
+      this.values[this.values.length - 1].last = true;
+    }
+  }
+}
 
 class VectorNode extends CollectionNode {}
 
@@ -155,7 +145,6 @@ module.exports = {
   ProgramNode,
   LeafNode,
   CommentNode,
-  FormNode,
   MetaNode,
   SymbolNode,
   KeywordNode,

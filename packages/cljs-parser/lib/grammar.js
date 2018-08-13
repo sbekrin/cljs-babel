@@ -45,7 +45,11 @@ const grammar = {
     ],
     leaf: ['code', ['leaf code', run('createLeaf', '$1', '$2')]],
     code: [
-      'form',
+      'list',
+      'vector',
+      'map',
+      'set',
+      'symbol',
       ['comment', run('createComment', '$1.replace(/^[;| |\t]+/, "")')],
     ],
     symbol: [
@@ -62,10 +66,9 @@ const grammar = {
       ['infinity', run('createInfinity', '$1[0] === "-"')],
       ['nil', run('createNull')],
       ['regexp', run('createRegExp', '$2')],
-      'form',
+      'list',
       'keyword',
       'symbol',
-      'list',
       'vector',
       'set',
       'map',
@@ -83,15 +86,11 @@ const grammar = {
       ['meta', '$$ = [ $1 ]'],
       ['metas meta', '$$ = yy.collectArgs($1, $2)'],
     ],
-    form: [
-      ['( values )', run('createForm', '$2')],
-      ['( )', run('createForm', '[]')],
-    ],
     list: [
-      ["metas ' ( values )", run('createList', '$3', '$2')],
-      ["metas ' ( )", run('createList', '[]', '$2')],
-      ["' ( values )", run('createList', '$2')],
-      ["' ( )", run('createList', '[]')],
+      ['metas ( values )', run('createList', '$3', '$2')],
+      ['metas ( )', run('createList', '[]', '$2')],
+      ['( values )', run('createList', '$2')],
+      ['( )', run('createList', '[]')],
     ],
     vector: [
       ['metas [ values ]', run('createVector', '$3', '$2')],
@@ -99,17 +98,17 @@ const grammar = {
       ['[ values ]', run('createVector', '$2')],
       ['[ ]', run('createVector', '[]')],
     ],
+    set: [
+      ['metas # { values }', run('createSet', '$4', '$3')],
+      ['metas # { }', run('createSet', '[]', '$3')],
+      ['# { values }', run('createSet', '$3')],
+      ['# { }', run('createSet', '[]')],
+    ],
     map: [
       ['metas { values }', run('createMap', '$3', '$2')],
       ['metas { }', run('createMap', '[]', '$2')],
       ['{ values }', run('createMap', '$2')],
       ['{ }', run('createMap', '[]')],
-    ],
-    set: [
-      ['metas # { values }', run('createSet', '$3', '$2')],
-      ['metas # { }', run('createSet', '[]', '$2')],
-      ['# { values }', run('createSet', '$2')],
-      ['# { }', run('createSet', '[]')],
     ],
     // TODO: namespaced map
   },

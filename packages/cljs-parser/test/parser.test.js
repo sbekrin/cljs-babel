@@ -12,7 +12,7 @@ ProgramNode {
     "startColumn": 0,
     "startLine": 1,
   },
-  "program": FormNode {
+  "program": ListNode {
     "last": false,
     "location": Object {
       "endColumn": 21,
@@ -20,6 +20,7 @@ ProgramNode {
       "startColumn": 0,
       "startLine": 1,
     },
+    "meta": null,
     "values": Array [
       SymbolNode {
         "last": false,
@@ -63,7 +64,7 @@ ProgramNode {
     "last": false,
     "left": LeafNode {
       "last": false,
-      "left": FormNode {
+      "left": ListNode {
         "last": false,
         "location": Object {
           "endColumn": 7,
@@ -71,6 +72,7 @@ ProgramNode {
           "startColumn": 0,
           "startLine": 1,
         },
+        "meta": null,
         "values": Array [
           SymbolNode {
             "last": false,
@@ -111,7 +113,7 @@ ProgramNode {
         "startColumn": 0,
         "startLine": 1,
       },
-      "right": FormNode {
+      "right": ListNode {
         "last": false,
         "location": Object {
           "endColumn": 15,
@@ -119,6 +121,7 @@ ProgramNode {
           "startColumn": 8,
           "startLine": 1,
         },
+        "meta": null,
         "values": Array [
           SymbolNode {
             "last": false,
@@ -160,7 +163,7 @@ ProgramNode {
       "startColumn": 0,
       "startLine": 1,
     },
-    "right": FormNode {
+    "right": ListNode {
       "last": false,
       "location": Object {
         "endColumn": 24,
@@ -168,6 +171,7 @@ ProgramNode {
         "startColumn": 16,
         "startLine": 1,
       },
+      "meta": null,
       "values": Array [
         SymbolNode {
           "last": false,
@@ -217,7 +221,7 @@ ProgramNode {
     "startColumn": 0,
     "startLine": 1,
   },
-  "program": FormNode {
+  "program": ListNode {
     "last": false,
     "location": Object {
       "endColumn": 24,
@@ -225,6 +229,7 @@ ProgramNode {
       "startColumn": 0,
       "startLine": 1,
     },
+    "meta": null,
     "values": Array [
       SymbolNode {
         "last": false,

@@ -30,10 +30,6 @@ function createComment(text, location) {
   return new l.CommentNode(text, location);
 }
 
-function createForm(values, location) {
-  return new l.FormNode(values, location);
-}
-
 function createMeta(value, location) {
   return new l.MetaNode(value, location);
 }
@@ -46,20 +42,20 @@ function createKeyword(name, location) {
   return new l.KeywordNode(name, location);
 }
 
-function createList(values, location) {
-  return new l.ListNode(values, location);
+function createList(values, meta, location) {
+  return new l.ListNode(values, meta, location);
 }
 
-function createVector(values, location) {
-  return new l.VectorNode(values, location);
+function createVector(values, meta, location) {
+  return new l.VectorNode(values, meta, location);
 }
 
-function createMap(values, location) {
-  return new l.MapNode(values, location);
+function createMap(values, meta, location) {
+  return new l.MapNode(values, meta, location);
 }
 
-function createSet(values, location) {
-  return new l.SetNode(values, location);
+function createSet(values, meta, location) {
+  return new l.SetNode(values, meta, location);
 }
 
 function createString(value, location) {
@@ -100,7 +96,6 @@ module.exports = Object.assign({}, l, {
   createProgram,
   createLeaf,
   createComment,
-  createForm,
   createMeta,
   createSymbol,
   createKeyword,

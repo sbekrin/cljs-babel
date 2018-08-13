@@ -1,6 +1,12 @@
+const invariant = require('invariant');
 const t = require('babel-types');
 const l = require('@cljs/types');
-const { toFlat, resolveSymbol } = require('@cljs/helpers');
+const {
+  toFlat,
+  isEven,
+  resolveSymbol,
+  resolveKeyword,
+} = require('@cljs/helpers');
 
 function translate(node) {
   if (!node) {
@@ -8,61 +14,80 @@ function translate(node) {
   }
   switch (node.constructor) {
     case l.ProgramNode: {
-      const program = translate(node.program).map(
-        node => (t.isStatement(node) ? node : t.expressionStatement(node))
+      const root = translate(node.program);
+      const program = Array.isArray(root) ? root : [root];
+      return t.file(
+        t.program(
+          program.map(
+            node => (t.isStatement(node) ? node : t.expressionStatement(node))
+          ),
+          []
+        ),
+        node
       );
-      return t.file(t.program(program, []), node);
     }
+    // (())
     case l.LeafNode:
       return translate(node.left).concat(translate(node.right));
+    // ()
+    case l.ListNode:
+      return node.values.length > 0 ? [translateList(node)] : [];
+    // foo -> foo
     case l.SymbolNode:
       return t.identifier(resolveSymbol(node.value));
+    // :foo -> 'foo'
     case l.KeywordNode:
-      return t.newExpression(t.identifier('Keyword'), [
-        // TODO: what if keyword has namespace?
-        // TODO: what should be 4th argument?
-        t.nullLiteral(),
-        t.stringLiteral(node.name),
-        t.stringLiteral(node.name),
-      ]);
+      return t.stringLiteral(node.name);
+    // [1 2 3] -> [1, 2, 3]
     case l.VectorNode: {
       return t.arrayExpression(node.values.map(translate));
-      /*
-      // See https://cljs.github.io/api/cljs.core/PersistentVector
-      return t.newExpression(t.identifier('PersistentVector'), [
-        t.nullLiteral(),
-        t.numericLiteral(node.values.length),
-        t.numericLiteral(5),
-        t.memberExpression(
-          t.identifier('PersistentVector'),
-          t.identifier('EMPTY_NODE')
-        ),
-        t.arrayExpression(values),
-        t.nullLiteral(),
-      ]);
-      */
     }
-    case l.FormNode:
-      return node.values.length > 0 ? [translateForm(node)] : [];
-    case l.ListNode:
-    case l.VectorNode:
+    // {:foo 1, :bar 2} -> new Map([['foo', 1], ['bar', 2]])
     case l.MapNode:
+      invariant(
+        isEven(node.values.length),
+        'Map literal must contain an even number of forms'
+      );
+      const values = node.values.map(translate);
+      return t.newExpression(t.identifier('Map'), [
+        t.arrayExpression(
+          values.reduce(
+            (acc, current, index) =>
+              isEven(index)
+                ? acc.concat(t.arrayExpression([current, values[index + 1]]))
+                : acc,
+            []
+          )
+        ),
+      ]);
+    // #{1 2 3} -> new Set([1, 2, 3])
     case l.SetNode:
+      return t.newExpression(t.identifier('Set'), [
+        t.arrayExpression(node.values.map(translate)),
+      ]);
+    // todo:
     case l.RegExpNode:
-      throw new Error('Not implemented');
+      throw new Error('RegExp is not implemented');
+    // "foo" -> 'foo'
+    // 'f' -> 'f'
     case l.StringNode:
     case l.CharacterNode:
       return t.stringLiteral(node.value);
+    // true -> true
     case l.BooleanNode:
       return t.booleanLiteral(node.value);
+    // 42 -> 42
     case l.NumberNode:
       return t.numericLiteral(node.value);
+    // NaN -> NaN
     case l.NaNNode:
       return t.identifier('NaN');
+    // Infinity -> InfinityNode
     case l.InfinityNode:
       return node.negative
         ? t.unaryExpression('-', t.identifier('Infinity'))
         : t.identifier('Infinity');
+    // nil -> null
     case l.NullNode:
       return t.nullLiteral();
     default:
@@ -72,7 +97,7 @@ function translate(node) {
   }
 }
 
-function translateForm(node) {
+function translateList(node) {
   const firstSymbol = node.values[0].value;
   // (.- foo bar) -> bar.foo
   if (firstSymbol.startsWith('.-')) {
