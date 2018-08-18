@@ -30,8 +30,40 @@ function translate(node) {
     case l.LeafNode:
       return translate(node.left).concat(translate(node.right));
     // ()
-    case l.ListNode:
-      return node.values.length > 0 ? [translateList(node)] : [];
+    case l.ListNode: {
+      if (!node.values.length) {
+        return [];
+      }
+      const firstSymbol = node.values[0].value;
+      // (.- foo bar) -> bar.foo
+      if (firstSymbol.startsWith('.-')) {
+        return t.memberExpression(
+          translate(node.values[1]),
+          t.identifier(resolveSymbol(firstSymbol))
+        );
+      }
+      // (.foo bar) -> bar.foo()
+      if (firstSymbol.startsWith('.')) {
+        const object = translate(node.values[1]);
+        const method = translate(node.values[0]);
+        const args = node.values
+          .slice(2, node.values.length)
+          .map(arg => toFlat(translate(arg)));
+        return t.callExpression(t.memberExpression(object, method), args);
+      }
+      // (String. "hey") -> new String('hey')
+      if (firstSymbol.endsWith('.')) {
+        const args = node.values
+          .slice(1, node.values.length)
+          .map(arg => toFlat(translate(arg)));
+        return t.newExpression(t.identifier(resolveSymbol(firstSymbol)), args);
+      }
+      // (foo bar baz) -> foo(bar, baz)
+      const args = node.values
+        .slice(1, node.values.length)
+        .map(arg => toFlat(translate(arg)));
+      return t.callExpression(t.identifier(firstSymbol), args);
+    }
     // foo -> foo
     case l.SymbolNode:
       return t.identifier(resolveSymbol(node.value));
@@ -95,38 +127,6 @@ function translate(node) {
         `Compile error, unknown node type ${node.constructor.name}`
       );
   }
-}
-
-function translateList(node) {
-  const firstSymbol = node.values[0].value;
-  // (.- foo bar) -> bar.foo
-  if (firstSymbol.startsWith('.-')) {
-    return t.memberExpression(
-      translate(node.values[1]),
-      t.identifier(resolveSymbol(firstSymbol))
-    );
-  }
-  // (.foo bar) -> bar.foo()
-  if (firstSymbol.startsWith('.')) {
-    const object = translate(node.values[1]);
-    const method = translate(node.values[0]);
-    const args = node.values
-      .slice(2, node.values.length)
-      .map(arg => toFlat(translate(arg)));
-    return t.callExpression(t.memberExpression(object, method), args);
-  }
-  // (String. "hey") -> new String('hey')
-  if (firstSymbol.endsWith('.')) {
-    const args = node.values
-      .slice(1, node.values.length)
-      .map(arg => toFlat(translate(arg)));
-    return t.newExpression(t.identifier(resolveSymbol(firstSymbol)), args);
-  }
-  // (foo bar baz) -> foo(bar, baz)
-  const args = node.values
-    .slice(1, node.values.length)
-    .map(arg => toFlat(translate(arg)));
-  return t.callExpression(t.identifier(firstSymbol), args);
 }
 
 module.exports = { translate };
