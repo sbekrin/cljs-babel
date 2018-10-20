@@ -37,10 +37,12 @@ function translate(node) {
       const firstSymbol = node.values[0].value;
       // (.- foo bar) -> bar.foo
       if (firstSymbol.startsWith('.-')) {
-        return t.memberExpression(
-          translate(node.values[1]),
-          t.identifier(resolveSymbol(firstSymbol))
-        );
+        return [
+          t.memberExpression(
+            translate(node.values[1]),
+            t.identifier(resolveSymbol(firstSymbol))
+          ),
+        ];
       }
       // (.foo bar) -> bar.foo()
       if (firstSymbol.startsWith('.')) {
@@ -49,33 +51,34 @@ function translate(node) {
         const args = node.values
           .slice(2, node.values.length)
           .map(arg => toFlat(translate(arg)));
-        return t.callExpression(t.memberExpression(object, method), args);
+        return [t.callExpression(t.memberExpression(object, method), args)];
       }
-      // (String. "hey") -> new String('hey')
+      // (foo. "hey") -> new foo('hey')
       if (firstSymbol.endsWith('.')) {
         const args = node.values
           .slice(1, node.values.length)
           .map(arg => toFlat(translate(arg)));
-        return t.newExpression(t.identifier(resolveSymbol(firstSymbol)), args);
+        return [
+          t.newExpression(t.identifier(resolveSymbol(firstSymbol)), args),
+        ];
       }
       // (foo bar baz) -> foo(bar, baz)
       const args = node.values
         .slice(1, node.values.length)
         .map(arg => toFlat(translate(arg)));
-      return t.callExpression(t.identifier(firstSymbol), args);
+      return [t.callExpression(t.identifier(resolveSymbol(firstSymbol)), args)];
     }
     // foo -> foo
     case l.SymbolNode:
       return t.identifier(resolveSymbol(node.value));
     // :foo -> 'foo'
     case l.KeywordNode:
-      return t.stringLiteral(node.name);
+      return t.stringLiteral(resolveKeyword(node.name));
     // [1 2 3] -> [1, 2, 3]
-    case l.VectorNode: {
+    case l.VectorNode:
       return t.arrayExpression(node.values.map(translate));
-    }
     // {:foo 1, :bar 2} -> new Map([['foo', 1], ['bar', 2]])
-    case l.MapNode:
+    case l.MapNode: {
       invariant(
         isEven(node.values.length),
         'Map literal must contain an even number of forms'
@@ -92,6 +95,7 @@ function translate(node) {
           )
         ),
       ]);
+    }
     // #{1 2 3} -> new Set([1, 2, 3])
     case l.SetNode:
       return t.newExpression(t.identifier('Set'), [
@@ -114,7 +118,8 @@ function translate(node) {
     // NaN -> NaN
     case l.NaNNode:
       return t.identifier('NaN');
-    // Infinity -> InfinityNode
+    // Infinity -> Infinity
+    // -Infinity -> -Infinity
     case l.InfinityNode:
       return node.negative
         ? t.unaryExpression('-', t.identifier('Infinity'))

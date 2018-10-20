@@ -1,3 +1,5 @@
+const { resolveSymbol } = require('@cljs/helpers');
+
 module.exports = function arithmetic(babel) {
   const { types: t } = babel;
   return {
@@ -9,18 +11,28 @@ module.exports = function arithmetic(babel) {
           const values = node.arguments;
           switch (fn) {
             // (+ a b) -> (a + b)
-            case '+':
-            case '-':
-            case '*':
-            case '/': {
+            case resolveSymbol('+'):
+            case resolveSymbol('-'):
+            case resolveSymbol('*'):
+            case resolveSymbol('/'): {
               if (values.length === 0) {
                 path.replaceWith(t.binaryExpression(1));
                 break;
               }
-              let expression = t.binaryExpression(fn, values[0], values[1]);
+              const operator = {
+                [resolveSymbol('+')]: '+',
+                [resolveSymbol('-')]: '-',
+                [resolveSymbol('*')]: '*',
+                [resolveSymbol('/')]: '/',
+              }[fn];
+              let expression = t.binaryExpression(
+                operator,
+                values[0],
+                values[1]
+              );
               if (values.length > 2) {
                 values.slice(2, values.length).forEach(node => {
-                  expression = t.binaryExpression(fn, expression, node);
+                  expression = t.binaryExpression(operator, expression, node);
                 });
               }
               path.replaceWith(t.parenthesizedExpression(expression));

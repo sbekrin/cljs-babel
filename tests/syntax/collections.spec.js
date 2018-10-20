@@ -8,7 +8,7 @@ describe('syntax', () => {
 
     it('supports maps', () => {
       expect(transform('{:foo 1 :bar 2}')).toMatchInlineSnapshot(
-        `"new Map([[\\":foo\\", 1], [\\":bar\\", 2]]);"`
+        `"new Map([[\\"foo\\", 1], [\\"bar\\", 2]]);"`
       );
     });
 

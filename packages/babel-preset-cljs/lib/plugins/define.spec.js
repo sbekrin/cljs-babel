@@ -11,7 +11,7 @@ describe('define', () => {
 
   it('translates def with doc string', () => {
     expect(transform('(def foo "bar" 42)')).toMatchInlineSnapshot(
-      `"var foo = 42;"`
+      `"/** bar */var foo = 42;"`
     );
   });
 });

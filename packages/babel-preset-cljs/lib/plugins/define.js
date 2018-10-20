@@ -1,4 +1,4 @@
-// todo: def, defmacro, defmethod, defmulti, defn, defn-, defonce, defprotocol, defrecord, deftype
+// todo: defmacro, defmethod, defmulti, defn, defn-, defonce, defprotocol, defrecord, deftype
 // todo: let, letfn, declare, ns
 module.exports = function defToVar(babel) {
   const { types: t } = babel;
@@ -14,27 +14,42 @@ module.exports = function defToVar(babel) {
               let doc;
               switch (node.arguments.length) {
                 case 1:
-                  name = node.arguments[0];
+                  [name] = node.arguments;
                   value = t.nullLiteral();
                   break;
                 case 2:
-                  name = node.arguments[0];
-                  value = node.arguments[1];
+                  [name, value] = node.arguments;
                   break;
                 case 3:
-                  name = node.arguments[0];
-                  // TODO: keep doc as a comment
-                  doc = node.arguments[1];
-                  value = node.arguments[2];
+                  [name, doc, value] = node.arguments;
                   break;
                 default:
                   throw new Error('Invalid arity for def');
               }
-              path.parentPath.replaceWith(
-                t.variableDeclaration('var', [
-                  t.variableDeclarator(name, value),
-                ])
-              );
+              const nextNode = t.variableDeclaration('var', [
+                t.variableDeclarator(name, value),
+              ]);
+              // Insert doc string as a leading comment if set
+              if (doc) {
+                nextNode.leadingComments = [
+                  { type: 'CommentBlock', value: `* ${doc.value} ` },
+                ];
+              }
+              path.parentPath.replaceWith(nextNode);
+              break;
+            }
+            case 'defmacro': {
+              let name;
+              let doc;
+              let attrs;
+              let params;
+              let body;
+              switch (node.arguments.length) {
+                case 3:
+                  [doc, attrs, params, body] = node.arguments;
+                  break;
+                case 2:
+              }
               break;
             }
           }

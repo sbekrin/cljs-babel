@@ -5,6 +5,5 @@
   "main": "lib/index.js",
   "author": "Sergey Bekrin <sergey@bekrin.me> (https://bekrin.me)",
   "license": "MIT",
-  "repository": "https://github.com/sergeybekrin/cljs/tree/master/packages/cljs-helpers",
-  "dependencies": {}
+  "repository": "https://github.com/sergeybekrin/cljs/tree/master/packages/cljs-helpers"
 }
