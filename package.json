@@ -15,9 +15,9 @@
     "test": "jest"
   },
   "devDependencies": {
-    "jest": "^23.5.0",
-    "lerna": "^3.0.1",
-    "prettier": "^1.14.2"
+    "jest": "^23.6.0",
+    "lerna": "^3.4.3",
+    "prettier": "^1.14.3"
   },
   "prettier": {
     "singleQuote": true,

@@ -4,6 +4,6 @@
   "private": true,
   "main": "lib/index.js",
   "dependencies": {
-    "babel-core": "^6.26.3"
+    "@babel/core": "^7.1.2"
   }
 }
