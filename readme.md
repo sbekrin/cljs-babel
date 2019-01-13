@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/sergeybekrin/cljs/raw/master/.github/logo.png" alt="logo" width="120" height="120" />
+  <img src="https://github.com/sbekrin/cljs/raw/master/.github/logo.png" alt="logo" width="120" height="120" />
   <h3 align="center">ClojureScript as Babel preset</h3>
   <p align="center">Experemental ClojureScript to JavaScript compiler<br />based on Babel ecosystem without binary dependencies.</p>
 </p>

@@ -5,5 +5,5 @@
   "main": "lib/index.js",
   "author": "Sergey Bekrin <sergey@bekrin.me> (https://bekrin.me)",
   "license": "MIT",
-  "repository": "https://github.com/sergeybekrin/cljs/tree/master/packages/cljs-types"
+  "repository": "https://github.com/sbekrin/cljs/tree/master/packages/cljs-types"
 }

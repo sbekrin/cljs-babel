@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "author": "Sergey Bekrin <sergey@bekrin.me> (https://bekrin.me)",
   "license": "MIT",
-  "repository": "https://github.com/sergeybekrin/cljs/tree/master/packages/cljs-parser",
+  "repository": "https://github.com/sbekrin/cljs/tree/master/packages/cljs-parser",
   "dependencies": {
     "@cljs/types": "^2.0.1",
     "jison": "^0.4.18"
